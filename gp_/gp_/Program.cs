@@ -21,6 +21,9 @@ namespace gp_
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.CaptureStartupErrors(true);
+                    webBuilder.PreferHostingUrls(true);
+
                 });
     }
 }
