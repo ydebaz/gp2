@@ -12,6 +12,7 @@ using gp_.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using gp_.Services;
 
 namespace gp_
 {
@@ -37,7 +38,7 @@ namespace gp_
             services.AddControllersWithViews();
             services.AddAuthorization();
             services.AddMvc();
-           // services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IUserService, UserService>();
 
             services.AddAuthentication();
         }
