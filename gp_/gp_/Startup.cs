@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using gp_.Services;
+using gp_.Extentions;
 
 namespace gp_
 {
@@ -39,7 +40,7 @@ namespace gp_
             services.AddAuthorization();
             services.AddMvc();
             services.AddSingleton<IUserService, UserService>();
-
+            
             services.AddAuthentication();
         }
 
@@ -60,11 +61,17 @@ namespace gp_
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseCommunicationMiddleware();
             app.UseRouting();
             app.UseFileServer();
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+
+            app.UseMvc();
+            //app.
+
 
             app.UseEndpoints(endpoints =>
             {
@@ -74,5 +81,6 @@ namespace gp_
                 endpoints.MapRazorPages();
             });
         }
+       //private static void Apip
     }
 }
