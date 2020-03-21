@@ -26,12 +26,21 @@ namespace gp_.Controllers
             if (ModelState.IsValid)
             {
                 await _userService.RegisterUser(userModel);
-                return Content($"User {userModel.FirstName}  {userModel.LastName} has been registered successfully");
+                return RedirectToAction(nameof(Emailconfirmation), new { userModel.Email });
+                // return Content($"User {userModel.FirstName}  {userModel.LastName} has been registered successfully");
             }
-            return View(userModel);
+            else
+            {
+                return View(userModel);
+            }
         }
         public IActionResult Index()
         {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult Emailconfirmation(string email) {
+            ViewBag.Email = email;
             return View();
         }
     }
