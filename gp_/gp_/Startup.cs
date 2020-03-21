@@ -40,8 +40,9 @@ namespace gp_
             services.AddAuthorization();
             services.AddMvc();
             services.AddSingleton<IUserService, UserService>();
-            
+            services.AddDirectoryBrowser();
             services.AddAuthentication();
+            services.AddRouting();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,12 +50,16 @@ namespace gp_
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                // app.UseDeveloperExceptionPage();
+               //   app.UseExceptionHandler("/Shared/Error");
+               app.UseStatusCodePagesWithRedirects("/error/{0}");
+
                 app.UseDatabaseErrorPage();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                //140
+               // app.UseExceptionHandler("/Shared/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -62,14 +67,16 @@ namespace gp_
             app.UseStaticFiles();
 
             app.UseCommunicationMiddleware();
+
             app.UseRouting();
+
             app.UseFileServer();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
-
-            app.UseMvc();
+        //    app.UseDirectoryBrowser();
+          //  app.UseMvc();
             //app.
 
 
@@ -78,7 +85,10 @@ namespace gp_
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                // refur to page 136 when needed 
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
         }
        //private static void Apip

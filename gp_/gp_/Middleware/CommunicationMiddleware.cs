@@ -19,6 +19,7 @@ namespace gp_.Middleware
         }
         public async Task Invoke(HttpContext context) {
             await _next.Invoke(context);
+            return;
         }
     }
 }
