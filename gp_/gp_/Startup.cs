@@ -33,6 +33,7 @@ namespace gp_
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -63,9 +64,11 @@ namespace gp_
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+           // endpoints.MapAreaControllerRoute(null, "MvcDashboardIdentity", "MvcDashboardIdentity/{controller=Home}/{action=Index}/{id?}");
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+ app.UseWebSockets();
             app.UseCommunicationMiddleware();
 
             app.UseRouting();
@@ -75,13 +78,15 @@ namespace gp_
             app.UseAuthentication();
             app.UseAuthorization();
 
-        //    app.UseDirectoryBrowser();
-          //  app.UseMvc();
+            //    app.UseDirectoryBrowser();
+            //  app.UseMvc();
             //app.
-
+           
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapAreaControllerRoute(null, "MvcDashboardIdentity", "MvcDashboardIdentity/{controller=Home}/{action=Index}/{id?}");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

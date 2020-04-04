@@ -39,8 +39,20 @@ namespace gp_.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult Emailconfirmation(string email) {
+        public async Task< IActionResult> Emailconfirmation(string email) {
             ViewBag.Email = email;
+            /////
+            var user = await _userService.GetUserByEmail(email);
+            if (user?.IsEmailConfirmed == true) {
+                return RedirectToAction("index", "openAccount", new { email = email });
+                //                return RedirectToAction("index", "UserDashBoard", new { email = email });
+                
+
+            }
+//user.IsEmailConfirmed = true;
+  //          user.EmailConfirmationDate = DateTime.Now;
+    //        await _userService.UpdateUser(user);
+            ////
             return View();
         }
     }

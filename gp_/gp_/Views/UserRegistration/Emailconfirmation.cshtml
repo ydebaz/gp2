@@ -7,3 +7,13 @@
 <h1>Emailconfirmation</h1>
 an email has been sent to @ViewBag.Email please confirm your email address by clicking on the provided link 
 
+
+
+@section Scripts{ 
+
+<script>
+    $(document).ready(function () { EmailConfirmation('@ViewBag.Email') });
+
+</script>
+}
+
