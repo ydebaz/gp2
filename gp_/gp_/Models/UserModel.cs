@@ -21,5 +21,6 @@ namespace gp_.Models
         public bool IsEmailConfirmed { get; set; }
         public System.DateTime? EmailConfirmationDate { get; set; }
        // public int Score { get; set; }
+
     }
 }

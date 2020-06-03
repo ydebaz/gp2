@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace gp_.Models
 {
@@ -28,9 +29,9 @@ namespace gp_.Models
 
         public string workplace { get; set; }
         public string status { get; set; }
-
+        [NotMapped]
         public Image Portrait { get; set; }
-
+        [NotMapped]
         public Image proofofwork { get; set; }
 
         public int personalphonenumber { get; set; }
