@@ -5,22 +5,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace gp_.Models
 {
-    public class DoctorModel
+    public class DoctorModel//:  IdentityUser
     {
         public Guid Id { get; set; }
         [Required()]
+        [DataType(DataType.Text)]
         public string FirstName { get; set; }
 
         [Required()]
+        [DataType(DataType.Text)]
+
         public string LastName { get; set; }
         [Required(), DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         [Required(), DataType(DataType.Password)]
         public string password { get; set; }
         public bool IsEmailConfirmed { get; set; }
+        [DataType(DataType.DateTime)]
         public System.DateTime? EmailConfirmationDate { get; set; }
 
         public string graduation_uni { get; set; }

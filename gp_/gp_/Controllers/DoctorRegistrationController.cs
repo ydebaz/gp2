@@ -17,19 +17,20 @@ namespace gp_.Controllers
         {
             _docService = docService;
         }
-
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(DoctorModel docModel)
+        public  IActionResult Index(DoctorModel docModel)
         {
             if (ModelState.IsValid)
             {
-                await _docService.RegisterDoc(docModel);
-                return RedirectToAction(nameof(Emailconfirmation), new { docModel.Email });
+              //  await _docService.RegisterDoc(docModel);
+                //   return RedirectToAction(nameof(Emailconfirmation), new { docModel.Email });
+                return View();
                 // return Content($"User {userModel.FirstName}  {userModel.LastName} has been registered successfully");
             }
             else
@@ -37,12 +38,12 @@ namespace gp_.Controllers
                 return View(docModel);
             }
         }
-
+/*
         [HttpGet]
         public IActionResult Emailconfirmation(string email)
         {
             ViewBag.Email = email;
             return View();
-        }
+        }*/
     }
 }
