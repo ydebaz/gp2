@@ -9,6 +9,6 @@
     "jquery-validation-unobtrusive": "3.2.11",
     "popper.js": "2.0.0-next.4",
     "adminlte-full": "2.3.12",
-      "admin-lte": "3.0.4"
+    "admin-lte": "3.0.4"
   }
 }

@@ -87,7 +87,7 @@ namespace gp_
             app.UseAuthorization();
 
             //    app.UseDirectoryBrowser();
-             app.UseMvcWithDefaultRoute();
+          //   app.UseMvcWithDefaultRoute();
             //app.
            
 
