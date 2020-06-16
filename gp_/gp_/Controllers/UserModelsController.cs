@@ -27,20 +27,19 @@ namespace gp_.Controllers
         }
 
         // GET: UserModels
+        
         [Authorize(Roles = "patient,doctor")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string id="qqq")
         {
-            var id = Guid.Parse(_userManager.GetUserId(HttpContext.User));
-            return View(_context.user.FirstOrDefault(m => m.Id == id));
-            // return View(await _context.user.ToListAsync());
-        }
-        [Authorize(Roles = "patient,doctor")]
-        public IActionResult Index(string id)
-        {
+            if (id.Equals("qqq") ){
+                var id2 = Guid.Parse(_userManager.GetUserId(HttpContext.User));
+                return View(await  _context.user.FirstOrDefaultAsync(m => m.Id == id2).ConfigureAwait(true));
+            }
+            else { 
             // var id = Guid.Parse(_userManager.GetUserId(HttpContext.User));
-            return View(_context.user.FirstOrDefault(m => m.Id == Guid.Parse(id)));
+            return View(await _context.user.FirstOrDefaultAsync(m => m.Id == Guid.Parse(id)).ConfigureAwait(true));
             // return View(await _context.user.ToListAsync());
-        }
+       } }
         // GET: UserModels/Details/5
         [Authorize(Roles = "patient,doctor")]
         public IActionResult Details(Guid? id)
