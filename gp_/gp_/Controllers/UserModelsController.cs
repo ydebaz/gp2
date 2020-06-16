@@ -31,10 +31,16 @@ namespace gp_.Controllers
         public async Task<IActionResult> Index()
         {
             var id = Guid.Parse(_userManager.GetUserId(HttpContext.User));
-            return View(_context.doctor.FirstOrDefault(m => m.Id == id));
+            return View(_context.user.FirstOrDefault(m => m.Id == id));
            // return View(await _context.user.ToListAsync());
         }
-
+        [Authorize(Roles = "patient,doctor")]
+        public async Task<IActionResult> Index(string id)
+        {
+           // var id = Guid.Parse(_userManager.GetUserId(HttpContext.User));
+            return View(_context.user.FirstOrDefault(m => m.Id ==Guid.Parse( id)));
+            // return View(await _context.user.ToListAsync());
+        }
         // GET: UserModels/Details/5
         [Authorize(Roles = "patient,doctor")]
         public async Task<IActionResult> Details(Guid? id)
