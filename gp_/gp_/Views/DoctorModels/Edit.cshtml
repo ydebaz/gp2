@@ -1,0 +1,77 @@
+﻿@model gp_.Models.DoctorModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>DoctorModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="graduation_uni" class="control-label"></label>
+                <input asp-for="graduation_uni" class="form-control" />
+                <span asp-validation-for="graduation_uni" class="text-danger"></span>
+            </div>
+            <!--    <div class="form-group form-check">
+        <label class="form-check-label">
+            <input class="form-check-input" asp-for="isActivated" /> @Html.DisplayNameFor(model => model.isActivated)
+        </label>
+    </div>-->
+            <div class="form-group">
+                <label asp-for="workplace" class="control-label"></label>
+                <input asp-for="workplace" class="form-control" />
+                <span asp-validation-for="workplace" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="status" class="control-label"></label>
+                <input asp-for="status" class="form-control" />
+                <span asp-validation-for="status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="personalphonenumber" class="control-label"></label>
+                <input asp-for="personalphonenumber" class="form-control" />
+                <span asp-validation-for="personalphonenumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="workphonenumber" class="control-label"></label>
+                <input asp-for="workphonenumber" class="form-control" />
+                <span asp-validation-for="workphonenumber" class="text-danger"></span>
+            </div>
+            <!-- <div class="form-group form-check">
+         <label class="form-check-label">
+             <input class="form-check-input" asp-for="ispart1comp" /> @Html.DisplayNameFor(model => model.ispart1comp)
+         </label>
+     </div>-->
+            <div class="form-group">
+                <label asp-for="jma_number" class="control-label"></label>
+                <input asp-for="jma_number" class="form-control" />
+                <span asp-validation-for="jma_number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

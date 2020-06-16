@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>please choose the role you want to be </h1>
+@using (Html.BeginForm("UpdateUserRole", "UserRegistration", FormMethod.Post))
+{
+    <div>
+        patient @Html.RadioButton("role", "patient")
+        doctor @Html.RadioButton("role", "doctor")
+    </div>
+    @Html.Hidden("id",UserManager.GetUserId(User))
+    <input type="submit" value="choose role" />
+}

@@ -1,0 +1,96 @@
+﻿@model IEnumerable<gp_.Models.DoctorModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.graduation_uni)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.isActivated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.workplace)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.personalphonenumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.workphonenumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ispart1comp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.jma_number)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.graduation_uni)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isActivated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.workplace)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.personalphonenumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.workphonenumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ispart1comp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.jma_number)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div>
+
+    you won't be able to use myPHR until an admin activates your account 
+
+    your account would have been activated is there is a tick on is_activated
+</div>

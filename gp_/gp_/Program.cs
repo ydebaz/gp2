@@ -14,6 +14,7 @@ namespace gp_
 {
     public class Program
     {
+        public static IServiceProvider services;
         public static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
@@ -21,7 +22,7 @@ namespace gp_
 
             using (var scope = host.Services.CreateScope())
             {
-                var services = scope.ServiceProvider;
+                 services = scope.ServiceProvider;
                 var loggerFactory = services.GetRequiredService<ILoggerFactory>();
                 try
                 {
