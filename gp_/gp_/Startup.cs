@@ -77,7 +77,7 @@ namespace gp_
             app.UseHttpsRedirection();
             app.UseStaticFiles();
  app.UseWebSockets();
-            app.UseCommunicationMiddleware();
+            //app.UseCommunicationMiddleware();
 
             app.UseRouting();
 

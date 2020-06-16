@@ -8,8 +8,8 @@ namespace gp_.Services
         Task<bool> Isonline(string name);
         Task<bool> RegisterUser(UserModel userModel);
 
-        Task<UserModel> GetUserByEmail(string email);
+    //    Task<UserModel> GetUserByEmail(string email);
 
-        Task UpdateUser(UserModel user);
+     //   Task UpdateUser(UserModel user);
     }
 }

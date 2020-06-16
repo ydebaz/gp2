@@ -9,8 +9,8 @@ namespace gp_.Extentions
 {
     public static class CommunicationMiddlewareExtention
     {
-        public static IApplicationBuilder UseCommunicationMiddleware(this IApplicationBuilder app) {
-            return app.UseMiddleware<CommunicationMiddleware>();
-        }
+      //  public static IApplicationBuilder UseCommunicationMiddleware(this IApplicationBuilder app) {
+        //    return app.UseMiddleware<CommunicationMiddleware>();
+        //}
     }
 }

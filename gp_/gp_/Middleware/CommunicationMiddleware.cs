@@ -15,7 +15,7 @@ namespace gp_.Middleware
 {
     public class CommunicationMiddleware
     {
-        private readonly RequestDelegate _next;
+      /*  private readonly RequestDelegate _next;
         private readonly IUserService _userService;
 
         public CommunicationMiddleware(RequestDelegate next, IUserService userService)
@@ -127,6 +127,6 @@ namespace gp_.Middleware
                 }
                 Task.Delay(500).Wait();
                 user = await _userService.GetUserByEmail(email);
-            } }
+            } }*/
     }
 }

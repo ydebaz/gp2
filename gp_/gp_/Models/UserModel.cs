@@ -15,14 +15,7 @@ namespace gp_.Models
 
         [Required()]
         public string LastName { get; set; }
-        [Required(),DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
-        [Required(),DataType(DataType.Password)]
-        public string password { get; set; }
-        public bool IsEmailConfirmed { get; set; } 
-        [DataType(DataType.DateTime)]
-        public System.DateTime? EmailConfirmationDate { get; set; }
-       // public int Score { get; set; }
-      
+       
+
     }
 }

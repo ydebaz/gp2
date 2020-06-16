@@ -5,9 +5,9 @@ namespace gp_.Services
 {
     public interface IDoctorService
     {
-        Task<DoctorModel> GetDocByEmail(string email);
+       // Task<DoctorModel> GetDocByEmail(string email);
         Task<bool> Isonline(string name);
-        Task<bool> RegisterDoc(DoctorModel doctorModel);
-        Task UpdateUser(DoctorModel doc);
+       // Task<bool> RegisterDoc(DoctorModel doctorModel);
+       // Task UpdateUser(DoctorModel doc);
     }
 }

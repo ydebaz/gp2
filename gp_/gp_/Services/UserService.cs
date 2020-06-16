@@ -24,7 +24,7 @@ namespace gp_.Services
             return Task.FromResult(true); }
         public Task<bool> Isonline(string name) { return Task.FromResult(true); }
 
-        public Task<UserModel> GetUserByEmail(string email)
+     /*   public Task<UserModel> GetUserByEmail(string email)
         {
             return Task.FromResult(_userStore.FirstOrDefault(u => u.Email==email));
           //  throw new NotImplementedException();
@@ -35,6 +35,6 @@ namespace gp_.Services
             _userStore = new ConcurrentBag<UserModel>(_userStore.Where(u => u.Email != user.Email)) { user };
             return Task.CompletedTask;
           //  throw new NotImplementedException();
-        }
+        }*/
     }
 }

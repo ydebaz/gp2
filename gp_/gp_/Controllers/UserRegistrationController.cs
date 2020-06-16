@@ -26,8 +26,9 @@ namespace gp_.Controllers
             if (ModelState.IsValid)
             {
                 await _userService.RegisterUser(userModel);
-                return RedirectToAction(nameof(Emailconfirmation), new { userModel.Email });
+                //  return RedirectToAction(nameof(Emailconfirmation), new { userModel.Email });
                 // return Content($"User {userModel.FirstName}  {userModel.LastName} has been registered successfully");
+                return View();
             }
             else
             {
@@ -42,18 +43,19 @@ namespace gp_.Controllers
         public async Task< IActionResult> Emailconfirmation(string email) {
             ViewBag.Email = email;
             /////
-            var user = await _userService.GetUserByEmail(email);
-            if (user?.IsEmailConfirmed == true) {
-                return RedirectToAction("index", "openAccount", new { email = email });
-                //                return RedirectToAction("index", "UserDashBoard", new { email = email });
-                
+            /*   var user = await _userService.GetUserByEmail(email);
+               if (user?.IsEmailConfirmed == true) {
+                   return RedirectToAction("index", "openAccount", new { email = email });
+                   //                return RedirectToAction("index", "UserDashBoard", new { email = email });*/
+            return RedirectToAction("index", "UserDashBoard");
+
+
 
             }
 //user.IsEmailConfirmed = true;
   //          user.EmailConfirmationDate = DateTime.Now;
     //        await _userService.UpdateUser(user);
             ////
-            return View();
+           // return View();
         }
     }
-}
