@@ -37,7 +37,7 @@ namespace gp_.Controllers
            // var val = fr["email"];
             var id = fr["id"];
             var user2 = _userManager.FindByIdAsync(id.ToString());
-            RedirectToAction("Index", "UserModels", user2);
+            RedirectToAction("Index", "UserModels", id.ToString());
             // var user = await _userManager.FindByIdAsync(id);
 
 

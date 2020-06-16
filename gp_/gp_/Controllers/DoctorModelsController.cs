@@ -25,15 +25,15 @@ namespace gp_.Controllers
         }
 
         // GET: DoctorModels
-        [Authorize(Roles = "doctor")]
-        public async Task<IActionResult> Index()
+
+        public IActionResult Index()
         {
             var id = Guid.Parse(_userManager.GetUserId(HttpContext.User));
-            return View( _context.doctor.FirstOrDefault(m => m.Id == id));
+            return View(_context.doctor.FirstOrDefault(m => m.Id == id));
         }
 
         // GET: DoctorModels/Details/5
-        [Authorize(Roles = "doctor")]
+
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -41,7 +41,7 @@ namespace gp_.Controllers
                 return NotFound();
             }
 
-            var doctorModel = await _context.doctor
+            var doctorModel =  _context.doctor
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (doctorModel == null)
             {
@@ -62,23 +62,23 @@ namespace gp_.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,graduation_uni,workplace,status,personalphonenumber,workphonenumber,jma_number")] DoctorModel doctorModel)
+        public async Task<IActionResult> Create1([Bind("Id,FirstName,LastName,graduation_uni,workplace,status,personalphonenumber,workphonenumber,jma_number")] DoctorModel doctorModel)
         {
             if (ModelState.IsValid)
             {
                 doctorModel.ispart1comp = true;
                 doctorModel.isActivated = false;
                 doctorModel.Id =Guid.Parse( _userManager.GetUserId(HttpContext.User));
-                _context.Add(doctorModel);
-                await _context.SaveChangesAsync();
-                _signInManager.SignOutAsync();
+                _context.doctor.Add(doctorModel);
+                _context.SaveChangesAsync();
+               // _signInManager.SignOutAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(doctorModel);
         }
 
         // GET: DoctorModels/Edit/5
-        [Authorize(Roles = "doctor")]
+       
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -86,7 +86,7 @@ namespace gp_.Controllers
                 return NotFound();
             }
 
-            var doctorModel = await _context.doctor.FindAsync(id);
+            var doctorModel =  _context.doctor.FindAsync(id);
             if (doctorModel == null)
             {
                 return NotFound();
@@ -99,7 +99,7 @@ namespace gp_.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "doctor")]
+       
         public async Task<IActionResult> Edit(Guid id, [Bind("Id,FirstName,LastName,graduation_uni,isActivated,workplace,status,personalphonenumber,workphonenumber,ispart1comp,jma_number")] DoctorModel doctorModel)
         {
             if (id != doctorModel.Id)
@@ -112,7 +112,7 @@ namespace gp_.Controllers
                 try
                 {
                     _context.Update(doctorModel);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync().ConfigureAwait(true);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -131,7 +131,7 @@ namespace gp_.Controllers
         }
 
         // GET: DoctorModels/Delete/5
-        [Authorize(Roles = "doctor")]
+      
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -140,7 +140,7 @@ namespace gp_.Controllers
             }
 
             var doctorModel = await _context.doctor
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(true);
             if (doctorModel == null)
             {
                 return NotFound();
@@ -152,12 +152,12 @@ namespace gp_.Controllers
         // POST: DoctorModels/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "doctor")]
+      
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var doctorModel = await _context.doctor.FindAsync(id);
+            var doctorModel = await _context.doctor.FindAsync(id).ConfigureAwait(true);
             _context.doctor.Remove(doctorModel);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync().ConfigureAwait(true);
             return RedirectToAction(nameof(Index));
         }
 

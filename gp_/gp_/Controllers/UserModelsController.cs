@@ -28,29 +28,29 @@ namespace gp_.Controllers
 
         // GET: UserModels
         [Authorize(Roles = "patient,doctor")]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var id = Guid.Parse(_userManager.GetUserId(HttpContext.User));
             return View(_context.user.FirstOrDefault(m => m.Id == id));
-           // return View(await _context.user.ToListAsync());
+            // return View(await _context.user.ToListAsync());
         }
         [Authorize(Roles = "patient,doctor")]
-        public async Task<IActionResult> Index(string id)
+        public IActionResult Index(string id)
         {
-           // var id = Guid.Parse(_userManager.GetUserId(HttpContext.User));
-            return View(_context.user.FirstOrDefault(m => m.Id ==Guid.Parse( id)));
+            // var id = Guid.Parse(_userManager.GetUserId(HttpContext.User));
+            return View(_context.user.FirstOrDefault(m => m.Id == Guid.Parse(id)));
             // return View(await _context.user.ToListAsync());
         }
         // GET: UserModels/Details/5
         [Authorize(Roles = "patient,doctor")]
-        public async Task<IActionResult> Details(Guid? id)
+        public IActionResult Details(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var userModel = await _context.user
+            var userModel = _context.user
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (userModel == null)
             {
@@ -71,14 +71,14 @@ namespace gp_.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName")] UserModel userModel)
+        public async Task<IActionResult> Create1([Bind("Id,FirstName,LastName")] UserModel userModel)
         {
             if (ModelState.IsValid)
             {
                 userModel.Id = Guid.Parse(_userManager.GetUserId(HttpContext.User));
-                _context.Add(userModel);
-                await _context.SaveChangesAsync();
-                _signInManager.SignOutAsync();
+                _context.user.Add(userModel);
+                await _context.SaveChangesAsync().ConfigureAwait(true);
+              //  _signInManager.SignOutAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(userModel);
@@ -86,14 +86,14 @@ namespace gp_.Controllers
 
         // GET: UserModels/Edit/5
         [Authorize(Roles = "patient,doctor")]
-        public async Task<IActionResult> Edit(Guid? id)
+        public IActionResult Edit(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var userModel = await _context.user.FindAsync(id);
+            var userModel = _context.user.FindAsync(id);
             if (userModel == null)
             {
                 return NotFound();
@@ -119,7 +119,7 @@ namespace gp_.Controllers
                 try
                 {
                     _context.Update(userModel);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync().ConfigureAwait(true);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -146,7 +146,7 @@ namespace gp_.Controllers
                 return NotFound();
             }
 
-            var userModel = await _context.user
+            var userModel =  _context.user
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (userModel == null)
             {
@@ -162,9 +162,9 @@ namespace gp_.Controllers
         [Authorize(Roles = "patient,doctor")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var userModel = await _context.user.FindAsync(id);
+            var userModel = await _context.user.FindAsync(id).ConfigureAwait(true);
             _context.user.Remove(userModel);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync().ConfigureAwait(true);
             return RedirectToAction(nameof(Index));
         }
 

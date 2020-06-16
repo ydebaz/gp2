@@ -61,11 +61,17 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="UserDashboard" asp-action="Index">patient dashboard</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="UserModels" asp-action="Index">user model</a>
+                            </li>
                         }
                         else if (SignInManager.IsSignedIn(User) && User.IsInRole("doctor"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="DoctorDashboard" asp-action="Index">patient dashboard</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="DoctorDashboard" asp-action="Index">doctor dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="DoctorModels" asp-action="Index">doctor model</a>
                             </li>
                         }
                     </ul>
