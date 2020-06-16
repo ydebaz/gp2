@@ -1,22 +1,23 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
-
+﻿
 @{
-ViewData["Title"] = "Index";
-Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <div>enter the code in your email to see patients data  </div>
 
-    @using (Html.BeginForm("getdoc", "DoctorDashboard", FormMethod.Post))
+
+
+
+<div>enter the code in your email to see patients data  </div>
+
+@using (Html.BeginForm("getdoc", "DoctorDashboard", FormMethod.Post))
 {
-    <div>
+<div>
 
-        @Html.TextBox("id", "", System.ComponentModel.DataAnnotations.DataType.id)
-    </div>
-    
-    <input type="submit" value="get user data" />
+    @Html.TextBox("id", "", string)
+</div>
+
+<input type="submit" value="get user data" />
 
 }
 

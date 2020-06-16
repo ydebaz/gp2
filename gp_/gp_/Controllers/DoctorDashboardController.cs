@@ -23,12 +23,13 @@ namespace gp_.Controllers
         [Authorize(Roles = "doctor")]
         public IActionResult Index()
         {
-            var id = Guid.Parse(_userManager.GetUserId(HttpContext.User));
-            var doc = _context.doctor.FirstOrDefault((m => m.Id == id));
-            if (doc.isActivated == true)
+            //var id = Guid.Parse(_userManager.GetUserId(HttpContext.User));
+            ///var doc = _context.doctor.FirstOrDefault((m => m.Id == id));
+            //if (doc.isActivated == true)
                 return View();
-            else
-                return View("error");
+         //   else {
+           //     return Redirect("/error");
+            //}
         }
 
         public void getdoc(IFormCollection fr)
