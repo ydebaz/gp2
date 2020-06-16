@@ -12,18 +12,22 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace gp_.Controllers
 {
-    [Authorize(Roles = "patient")]
+   
     public class UserModelsController : Controller
     {
         private UserManager<IdentityUser> _userManager;
         private readonly ApplicationDbContext _context;
+        private SignInManager<IdentityUser> _signInManager;
 
-        public UserModelsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+
+        public UserModelsController(ApplicationDbContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> sm)
         {
             _context = context; _userManager = userManager;
+            _signInManager = sm;
         }
 
         // GET: UserModels
+        [Authorize(Roles = "patient,doctor")]
         public async Task<IActionResult> Index()
         {
             var id = Guid.Parse(_userManager.GetUserId(HttpContext.User));
@@ -32,6 +36,7 @@ namespace gp_.Controllers
         }
 
         // GET: UserModels/Details/5
+        [Authorize(Roles = "patient,doctor")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -67,12 +72,14 @@ namespace gp_.Controllers
                 userModel.Id = Guid.Parse(_userManager.GetUserId(HttpContext.User));
                 _context.Add(userModel);
                 await _context.SaveChangesAsync();
+                _signInManager.SignOutAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(userModel);
         }
 
         // GET: UserModels/Edit/5
+        [Authorize(Roles = "patient,doctor")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -93,6 +100,7 @@ namespace gp_.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "patient,doctor")]
         public async Task<IActionResult> Edit(Guid id, [Bind("Id,FirstName,LastName")] UserModel userModel)
         {
             if (id != userModel.Id)
@@ -124,6 +132,7 @@ namespace gp_.Controllers
         }
 
         // GET: UserModels/Delete/5
+        [Authorize(Roles = "patient,doctor")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -144,6 +153,7 @@ namespace gp_.Controllers
         // POST: UserModels/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "patient,doctor")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var userModel = await _context.user.FindAsync(id);

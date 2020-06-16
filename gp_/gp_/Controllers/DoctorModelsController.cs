@@ -12,25 +12,28 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace gp_.Controllers
 {
-    [Authorize(Roles="doctor")]
+   
     public class DoctorModelsController : Controller
     {
         private UserManager<IdentityUser> _userManager;
         private readonly ApplicationDbContext _context;
+        private SignInManager<IdentityUser> _signInManager;
 
-        public DoctorModelsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public DoctorModelsController(ApplicationDbContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser>sm)
         {
-            _context = context; _userManager = userManager;
+            _context = context; _userManager = userManager;_signInManager = sm;
         }
 
         // GET: DoctorModels
+        [Authorize(Roles = "doctor")]
         public async Task<IActionResult> Index()
         {
             var id = Guid.Parse(_userManager.GetUserId(HttpContext.User));
-            return View( _context.doctor.FirstOrDefault(m => m.Id == id)));
+            return View( _context.doctor.FirstOrDefault(m => m.Id == id));
         }
 
         // GET: DoctorModels/Details/5
+        [Authorize(Roles = "doctor")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -68,12 +71,14 @@ namespace gp_.Controllers
                 doctorModel.Id =Guid.Parse( _userManager.GetUserId(HttpContext.User));
                 _context.Add(doctorModel);
                 await _context.SaveChangesAsync();
+                _signInManager.SignOutAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(doctorModel);
         }
 
         // GET: DoctorModels/Edit/5
+        [Authorize(Roles = "doctor")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -94,6 +99,7 @@ namespace gp_.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "doctor")]
         public async Task<IActionResult> Edit(Guid id, [Bind("Id,FirstName,LastName,graduation_uni,isActivated,workplace,status,personalphonenumber,workphonenumber,ispart1comp,jma_number")] DoctorModel doctorModel)
         {
             if (id != doctorModel.Id)
@@ -125,6 +131,7 @@ namespace gp_.Controllers
         }
 
         // GET: DoctorModels/Delete/5
+        [Authorize(Roles = "doctor")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -145,6 +152,7 @@ namespace gp_.Controllers
         // POST: DoctorModels/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "doctor")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var doctorModel = await _context.doctor.FindAsync(id);

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using gp_.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +29,25 @@ namespace gp_.Controllers
                 return View();
             else
                 return View("error");
+        }
+
+        public void getdoc(IFormCollection fr)
+        {
+           // var val = fr["email"];
+            var id = fr["id"];
+            var user2 = _userManager.FindByIdAsync(id.ToString());
+            RedirectToAction("Index", "UserModels", user2);
+            // var user = await _userManager.FindByIdAsync(id);
+
+
+            // await _userManager.AddToRoleAsync(user2.Result, val.ToString());
+            //    if (val.ToString().Equals("patient"))
+            //{
+            //    await _userManager.AddToRoleAsync(user2.Result, val.ToString());
+            //  return RedirectToAction("Create", "UserModels");
+            //}
+         //   EmailSender e = new EmailSender();
+           // await e.SendEmailAsync(val.ToString(), "hey doc see my data", "the user " + HttpContext.User.Identity.Name.ToString() + "wants you to see his/her data , visit myPHR and enter the following code on your dashboard : " + id.ToString());
         }
     }
 }

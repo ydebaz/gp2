@@ -1,8 +1,21 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser>  UserManager
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<div>enter your doctor's email to allow seeing your data </div>
 
+@using (Html.BeginForm("senddoc", "UserDashboard", FormMethod.Post))
+{
+    <div>
+
+        @Html.TextBox("email", "", System.ComponentModel.DataAnnotations.DataType.EmailAddress)
+    </div>
+    @Html.Hidden("id", UserManager.GetUserId(User))
+    <input type="submit" value="send my data to doc" />
+
+}
+    

@@ -1,8 +1,22 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+ViewData["Title"] = "Index";
+Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+    <div>enter the code in your email to see patients data  </div>
+
+    @using (Html.BeginForm("getdoc", "DoctorDashboard", FormMethod.Post))
+{
+    <div>
+
+        @Html.TextBox("id", "", System.ComponentModel.DataAnnotations.DataType.id)
+    </div>
+    
+    <input type="submit" value="get user data" />
+
+}
 
