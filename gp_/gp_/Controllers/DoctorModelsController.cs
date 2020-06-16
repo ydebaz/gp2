@@ -26,7 +26,8 @@ namespace gp_.Controllers
         // GET: DoctorModels
         public async Task<IActionResult> Index()
         {
-            return View(await _context.doctor.ToListAsync());
+            var id = Guid.Parse(_userManager.GetUserId(HttpContext.User));
+            return View( _context.doctor.FirstOrDefault(m => m.Id == id)));
         }
 
         // GET: DoctorModels/Details/5
@@ -58,10 +59,12 @@ namespace gp_.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,graduation_uni,isActivated,workplace,status,personalphonenumber,workphonenumber,ispart1comp,jma_number")] DoctorModel doctorModel)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,graduation_uni,workplace,status,personalphonenumber,workphonenumber,jma_number")] DoctorModel doctorModel)
         {
             if (ModelState.IsValid)
             {
+                doctorModel.ispart1comp = true;
+                doctorModel.isActivated = false;
                 doctorModel.Id =Guid.Parse( _userManager.GetUserId(HttpContext.User));
                 _context.Add(doctorModel);
                 await _context.SaveChangesAsync();

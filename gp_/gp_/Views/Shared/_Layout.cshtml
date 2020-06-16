@@ -46,10 +46,28 @@
                         </li>
                         @if (SignInManager.IsSignedIn(User) && !(User.IsInRole("patient") || User.IsInRole("doctor") || User.IsInRole("Administrators")))
                         {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="UserRegistration" asp-action="Index">complete registration</a>
-                        </li>
-                       }
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="UserRegistration" asp-action="Index">complete registration</a>
+                            </li>
+                        }
+                        else if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrators"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="admindashboard" asp-action="Index">admin dashboard</a>
+                            </li>
+                        }
+                        else if (SignInManager.IsSignedIn(User) && User.IsInRole("patient"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="UserDashboard" asp-action="Index">patient dashboard</a>
+                            </li>
+                        }
+                        else if (SignInManager.IsSignedIn(User) && User.IsInRole("doctor"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="DoctorDashboard" asp-action="Index">patient dashboard</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
