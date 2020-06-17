@@ -10,6 +10,7 @@ using gp_.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 
+
 namespace gp_.Controllers
 {
    
@@ -29,31 +30,36 @@ namespace gp_.Controllers
         // GET: UserModels
         
         [Authorize(Roles = "patient,doctor")]
-        public async Task<IActionResult> Index(string id="qqq")
+        public async Task<IActionResult> Index(string? id)
         {
-            if (id.Equals("qqq") ){
+            
+            if (id==null ){
                 var id2 = Guid.Parse(_userManager.GetUserId(HttpContext.User));
-                return View(await  _context.user.FirstOrDefaultAsync(m => m.Id == id2).ConfigureAwait(true));
+                return View( _context.user.Find( id2));
             }
             else { 
             // var id = Guid.Parse(_userManager.GetUserId(HttpContext.User));
-            return View(await _context.user.FirstOrDefaultAsync(m => m.Id == Guid.Parse(id)).ConfigureAwait(true));
+            return View( _context.user.Find(Guid.Parse(id)));
             // return View(await _context.user.ToListAsync());
-       } }
+       } 
+        }
         // GET: UserModels/Details/5
-        [Authorize(Roles = "patient,doctor")]
+       // [Authorize(Roles = "patient,doctor")]
         public IActionResult Details(Guid? id)
         {
             if (id == null)
             {
-                return NotFound();
+               
+                return NotFound("1");
             }
 
             var userModel = _context.user
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Find( id);
             if (userModel == null)
             {
-                return NotFound();
+                //Console.WriteLine(2);
+
+                return NotFound("2");
             }
 
             return View(userModel);
@@ -76,7 +82,7 @@ namespace gp_.Controllers
             {
                 userModel.Id = Guid.Parse(_userManager.GetUserId(HttpContext.User));
                 _context.user.Add(userModel);
-                await _context.SaveChangesAsync().ConfigureAwait(true);
+                _context.SaveChanges();
               //  _signInManager.SignOutAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -84,7 +90,7 @@ namespace gp_.Controllers
         }
 
         // GET: UserModels/Edit/5
-        [Authorize(Roles = "patient,doctor")]
+      
         public IActionResult Edit(Guid? id)
         {
             if (id == null)
@@ -92,7 +98,7 @@ namespace gp_.Controllers
                 return NotFound();
             }
 
-            var userModel = _context.user.FindAsync(id);
+            var userModel = _context.user.Find(id);
             if (userModel == null)
             {
                 return NotFound();
@@ -105,7 +111,7 @@ namespace gp_.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "patient,doctor")]
+       // [Authorize(Roles = "patient,doctor")]
         public async Task<IActionResult> Edit(Guid id, [Bind("Id,FirstName,LastName")] UserModel userModel)
         {
             if (id != userModel.Id)
@@ -117,8 +123,8 @@ namespace gp_.Controllers
             {
                 try
                 {
-                    _context.Update(userModel);
-                    await _context.SaveChangesAsync().ConfigureAwait(true);
+                    _context.user.Update(userModel);
+                   _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -146,7 +152,7 @@ namespace gp_.Controllers
             }
 
             var userModel =  _context.user
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Find(id);
             if (userModel == null)
             {
                 return NotFound();
@@ -161,7 +167,7 @@ namespace gp_.Controllers
         [Authorize(Roles = "patient,doctor")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var userModel = await _context.user.FindAsync(id).ConfigureAwait(true);
+            var userModel =  _context.user.Find(id);
             _context.user.Remove(userModel);
             await _context.SaveChangesAsync().ConfigureAwait(true);
             return RedirectToAction(nameof(Index));

@@ -32,12 +32,12 @@ namespace gp_.Controllers
             //}
         }
 
-        public void getdoc(IFormCollection fr)
+        public RedirectToActionResult getdoc(IFormCollection fr)
         {
            // var val = fr["email"];
             var id = fr["id"];
             var user2 = _userManager.FindByIdAsync(id.ToString());
-            RedirectToAction("Index", "UserModels", id.ToString());
+           return RedirectToAction("Details", "UserModels",new { id=Guid.Parse(id.ToString()) });
             // var user = await _userManager.FindByIdAsync(id);
 
 

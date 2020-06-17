@@ -29,7 +29,7 @@ namespace gp_.Controllers
         public IActionResult Index()
         {
             var id = Guid.Parse(_userManager.GetUserId(HttpContext.User));
-            return View(_context.doctor.FirstOrDefault(m => m.Id == id));
+            return View(_context.doctor.Find( id));
         }
 
         // GET: DoctorModels/Details/5
@@ -42,7 +42,7 @@ namespace gp_.Controllers
             }
 
             var doctorModel =  _context.doctor
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Find(id);
             if (doctorModel == null)
             {
                 return NotFound();
@@ -70,7 +70,7 @@ namespace gp_.Controllers
                 doctorModel.isActivated = false;
                 doctorModel.Id =Guid.Parse( _userManager.GetUserId(HttpContext.User));
                 _context.doctor.Add(doctorModel);
-                _context.SaveChangesAsync();
+                _context.SaveChanges();
                // _signInManager.SignOutAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -86,7 +86,7 @@ namespace gp_.Controllers
                 return NotFound();
             }
 
-            var doctorModel =  _context.doctor.FindAsync(id);
+            var doctorModel =  _context.doctor.Find(id);
             if (doctorModel == null)
             {
                 return NotFound();
@@ -112,7 +112,7 @@ namespace gp_.Controllers
                 try
                 {
                     _context.Update(doctorModel);
-                    await _context.SaveChangesAsync().ConfigureAwait(true);
+                     _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -139,8 +139,8 @@ namespace gp_.Controllers
                 return NotFound();
             }
 
-            var doctorModel = await _context.doctor
-                .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(true);
+            var doctorModel =  _context.doctor
+                .Find(id);
             if (doctorModel == null)
             {
                 return NotFound();

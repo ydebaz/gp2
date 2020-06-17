@@ -14,10 +14,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                first name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                last name
             </th>
             <th></th>
         </tr>
@@ -26,10 +26,10 @@
 
         <tr>
             <td>
-                @Html.Display(Model.FirstName)
+                @Html.DisplayName(Model.FirstName)
             </td>
             <td>
-                @Html.Display(Model.LastName)
+               @Html.DisplayName(Model.LastName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
