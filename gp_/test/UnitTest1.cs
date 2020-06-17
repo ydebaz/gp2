@@ -1,6 +1,5 @@
 using NUnit.Framework;
-using NUnit.Extensions.Asp;
-using NUnit.Extensions.Asp.AspTester;
+
 namespace test
 {
     public class Tests
