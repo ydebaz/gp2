@@ -20,7 +20,7 @@ namespace gp_.Services
 
             public Task SendEmailAsync(string email, string subject, string message)
             {
-                return Execute("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", subject, message, email);
+                return Execute("//input api here", subject, message, email);
             }
 
             public Task Execute(string apiKey, string subject, string message, string email)
