@@ -5,7 +5,7 @@
   "devDependencies": {
     "bootstrap": "4.4.1",
     "jquery": "3.5.1",
-    "jquery-validation": "1.19.1",
+    "jquery-validation": "1.19.5",
     "jquery-validation-unobtrusive": "3.2.11",
     "popper.js": "2.0.0-next.4",
     "adminlte-full": "2.3.12",
